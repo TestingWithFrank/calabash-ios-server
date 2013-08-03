@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "RequestRouter.h"
-static const NSString *kLPCALABASHVERSION = @"0.10.0";
+static const NSString *kLPCALABASHVERSION = @"0.10.1";
 
 @interface LPVersionCommand : NSObject<HTTPRequestHandler>
 
