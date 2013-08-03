@@ -15,7 +15,9 @@
 #import "LPVersionCommand.h"
 #import "LPConditionRoute.h"
 #import "LPRecordRoute.h"
+#import "LPKeyboardRoute.h"
 #import "FrankCommandRoute.h"
+#import "LPMapRoute.h"
 #import <dlfcn.h>
 
 
@@ -39,6 +41,11 @@
         return [[LPAsyncPlaybackRoute new] autorelease];
     }];
     
+    [self handlePostTo:@"/keyboard" with:^{
+        return [[LPKeyboardRoute new] autorelease];
+    }];
+
+    
     [self handlePostTo:@"/condition" with:^{
         return [[LPConditionRoute new] autorelease];
     }];
@@ -51,9 +58,13 @@
         return [[LPAppPropertyCommand new] autorelease];
     }];
 
-    [self handleGetTo:@"/calabash_version" with:^{
+    [self handlePostTo:@"/calabash/map" with:^{
+        return [[LPMapRoute new] autorelease];
+    }];
+    [self handleGetTo:@"/calabash/version" with:^{
         return [[LPVersionCommand new] autorelease];
     }];
+
 }
 
 + (void)load {

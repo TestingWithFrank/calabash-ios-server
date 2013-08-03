@@ -9,13 +9,13 @@
 #import "LPOperation.h"
 #import "LPTouchUtils.h"
 
+#import "HttpRequestContext.h"
+#import "HTTPDataResponse.h"
+
 
 @implementation LPMapRoute
 @synthesize parser;
 
-- (BOOL)supportsMethod:(NSString *)method atPath:(NSString *)path {
-    return [method isEqualToString:@"POST"];
-}
 - (NSArray*) applyOperation:(NSDictionary *)operation toViews:(NSArray *) views error:(NSError **)error {
     if ([operation valueForKey:@"method_name"] == nil) {
         return [[views copy] autorelease];
@@ -43,7 +43,11 @@
     }
     return finalRes;
 }
-- (NSDictionary *)JSONResponseForMethod:(NSString *)method URI:(NSString *)path data:(NSDictionary*)data {
+
+-(NSObject<HTTPResponse> *) handleRequest:(HTTPRequestContext *)context{
+
+//- (NSDictionary *)JSONResponseForMethod:(NSString *)method URI:(NSString *)path data:(NSDictionary*)data {
+    NSDictionary *data = [context bodyAsJsonDict];
     
     id scriptObj = [data objectForKey:@"query"];
     NSDictionary* operation = [data objectForKey:@"operation"];
@@ -75,16 +79,9 @@
     NSArray* resultArray = [self applyOperation:operation toViews:result error:&error];
     
     if (resultArray) {
-        return [NSDictionary dictionaryWithObjectsAndKeys:
-                resultArray , @"results",
-                @"SUCCESS",@"outcome",
-                nil];
+        return [context successResponseWithResults:resultArray];
     } else {
-        return [NSDictionary dictionaryWithObjectsAndKeys:
-                @"FAILURE",@"outcome",
-                @"",@"reason",
-                @"",@"details",
-                nil];
+        return [context errorResponseWithReason:@"" andDetails:@""];
     } 
 }
 

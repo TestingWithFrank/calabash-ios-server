@@ -74,6 +74,8 @@
 		B1FC2727174A798E00CCA0F9 /* NSDictionary+Frank.m in Sources */ = {isa = PBXBuildFile; fileRef = B1FC2725174A798E00CCA0F9 /* NSDictionary+Frank.m */; };
 		C110E461178735FD00CFE509 /* LPAppPropertyCommand.h in Headers */ = {isa = PBXBuildFile; fileRef = C110E45F178735FD00CFE509 /* LPAppPropertyCommand.h */; };
 		C110E462178735FD00CFE509 /* LPAppPropertyCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = C110E460178735FD00CFE509 /* LPAppPropertyCommand.m */; };
+		C1D4DA7517ACBFA400FC468C /* LPKeyboardRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = B16321F715BC200300408364 /* LPKeyboardRoute.m */; };
+		C1D4DA7617ACC24500FC468C /* LPMapRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = B184FDD214B6DB2B002A744C /* LPMapRoute.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -3353,6 +3355,8 @@
 				B1FC26C3174A62B700CCA0F9 /* LPConditionRoute.m in Sources */,
 				B1FC2727174A798E00CCA0F9 /* NSDictionary+Frank.m in Sources */,
 				C110E462178735FD00CFE509 /* LPAppPropertyCommand.m in Sources */,
+				C1D4DA7517ACBFA400FC468C /* LPKeyboardRoute.m in Sources */,
+				C1D4DA7617ACC24500FC468C /* LPMapRoute.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

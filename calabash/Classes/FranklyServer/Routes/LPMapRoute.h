@@ -5,9 +5,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LPRoute.h"
-#import "UIScriptParser.h"
-@interface LPMapRoute : NSObject<LPRoute>
+
+#import "RoutingEntry.h"
+
+@class UIScriptParser;
+
+@interface LPMapRoute : NSObject<HTTPRequestHandler>
 
 @property (nonatomic, retain) UIScriptParser *parser;
 @end
