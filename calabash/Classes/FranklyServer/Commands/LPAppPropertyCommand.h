@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "RoutingEntry.h"
 
-@interface LPAppPropertyCommand : NSObject
+@interface LPAppPropertyCommand : NSObject<HTTPRequestHandler>
 
 @end

@@ -11,6 +11,7 @@
 #import "LPAsyncPlaybackRoute.h"
 #import "CalabashUISpecSelectorEngine.h"
 #import "LPUserPrefCommand.h"
+#import "LPAppPropertyCommand.h"
 #import "LPVersionCommand.h"
 #import "LPConditionRoute.h"
 #import "LPRecordRoute.h"
@@ -44,6 +45,10 @@
     
     [self handleGetOrPostTo:@"/userprefs" with:^{
         return [[LPUserPrefCommand new] autorelease];
+    }];
+
+    [self handleGetOrPostTo:@"/appproperty" with:^{
+        return [[LPAppPropertyCommand new] autorelease];
     }];
 
     [self handleGetTo:@"/calabash_version" with:^{

@@ -9,7 +9,6 @@
 #import "LPUserPrefCommand.h"
 #import "LPJSONUtils.h"
 #import "HTTPRequestContext.h"
-#import "FranklyProtocolHelper.h"
 #import "HTTPDataResponse.h"
 
 @implementation LPUserPrefCommand
