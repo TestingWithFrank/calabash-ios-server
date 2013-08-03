@@ -8,39 +8,59 @@
 
 #import "LPUserPrefCommand.h"
 #import "LPJSONUtils.h"
+#import "HTTPRequestContext.h"
 #import "FranklyProtocolHelper.h"
-#import "JSON.h"
+#import "HTTPDataResponse.h"
 
 @implementation LPUserPrefCommand
 
-- (NSString *)handleCommandWithRequestBody:(NSString *)requestBody
-{
-    NSDictionary *data = FROM_JSON(requestBody);
+-(NSObject<HTTPResponse> *) handleRequest:(HTTPRequestContext *)context{
+    
+    if( [context isMethod:@"GET"] ){
+        return [self handleGet:context];
+    }else{
+        return [self handlePost:context];
+    }
+}
+
+-(NSObject<HTTPResponse> *) handleGet:(HTTPRequestContext *)context{    
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    [ud synchronize];
+    
+    NSString *key = [[context queryParams] valueForKey:@"key"];
+    id curVal = [ud valueForKey:key];
+    
+    if( !curVal )
+        curVal = [NSNull null];
+    
+    return [context successResponseWithResults: @[curVal]];
+}
+
+-(NSObject<HTTPResponse> *) handlePost:(HTTPRequestContext *)context{
+    NSDictionary *data = context.bodyAsJsonDict;
     
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     [ud synchronize];
     
     NSString *key = [data valueForKey:@"key"];
     id curVal = [ud valueForKey:key];
-    id val = [data valueForKey:@"value"];
-    if (val)
-    {
-        if ([val isKindOfClass:[NSNull class]])
-        {
-            [ud removeObjectForKey:key];
-        }
-        else
-        {
-            [ud setValue:val forKey:key];
-        }
-        
-        
-        [ud synchronize];
-        
-        return [FranklyProtocolHelper generateSuccessResponseWithResults: [NSArray arrayWithObjects:val,curVal, nil]];
-        
-    }
-    return [FranklyProtocolHelper generateSuccessResponseWithResults: [NSArray arrayWithObjects:curVal, nil]];
+    if( !curVal )
+        curVal = [NSNull null];
+
+    id newVal = [data valueForKey:@"value"];
     
+    if ([newVal isKindOfClass:[NSNull class]])
+    {
+        [ud removeObjectForKey:key];
+    }
+    else
+    {
+        [ud setValue:newVal forKey:key];
+    }
+    [ud synchronize];
+    
+    
+    return [context successResponseWithResults: @[newVal,curVal]];
 }
+
 @end

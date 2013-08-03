@@ -6,18 +6,17 @@
 //  Copyright (c) 2012 LessPainful. All rights reserved.
 //
 #import <Foundation/Foundation.h>
-#import "RequestRouter.h"
+#import "RoutingEntry.h"
 #import "HTTPResponse.h"
 #import "HTTPConnection.h"
 
-@interface LPGenericAsyncRoute : NSObject<Route,HTTPResponse>
+@interface LPGenericAsyncRoute : NSObject<HTTPRequestHandler,HTTPResponse>
 {    
     BOOL _done;
     HTTPConnection *_conn;
     NSDictionary *_data;
     NSDictionary *_jsonResponse;
     volatile NSData *_bytes;
-    
 }
 
 @property (nonatomic, assign) volatile BOOL done;
@@ -27,7 +26,6 @@
 
 -(void)beginOperation;
 - (BOOL)isDone;
--(BOOL)matchesPath:(NSArray *)path;
 -(void)failWithMessageFormat:(NSString *)messageFmt message:(NSString *)message;
 -(void)succeedWithResult:(NSArray *)result;
 

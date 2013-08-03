@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FrankCommandRoute.h"
+#import "RoutingEntry.h"
 
-@interface LPUserPrefCommand : NSObject<FrankCommand>
+@interface LPUserPrefCommand : NSObject<HTTPRequestHandler>
 
 @end

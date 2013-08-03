@@ -10,7 +10,7 @@
 
 #import "HTTPResponse.h"
 #import "HTTPConnection.h"
-#import "RoutingHTTPConnection.h"
+#import "HTTPRequestContext.h"
 #import "LPResources.h"
 #import "LPRecorder.h"
 #import "UIScriptParser.h"
@@ -35,24 +35,12 @@
     }
     return self;
 }
--(BOOL)matchesPath:(NSArray *)path 
-{
-    return NO;
-}
 
-- (NSObject<HTTPResponse> *) handleRequestForPath: (NSArray *)path withConnection:(RoutingHTTPConnection *)connection_
-{
-    if (![self matchesPath:path]) { return nil; }
-    self.data = [LPJSONUtils deserializeDictionary:[connection_ postDataAsString]];
-    self.conn = connection_;
-
+-(NSObject<HTTPResponse> *) handleRequest:(HTTPRequestContext *)context{
+    self.data = [LPJSONUtils deserializeDictionary:[context bodyAsString]];
+    self.conn = [context connection];
+    
     return [self httpResponse];
-
-}
-- (BOOL) canHandlePostForPath: (NSArray *)path
-{
-    if (![self matchesPath:path]) { return NO; }
-    return YES;
 }
 
 - (UInt64)offset {return 0;}

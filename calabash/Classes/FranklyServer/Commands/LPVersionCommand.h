@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FrankCommandRoute.h"
+#import "RequestRouter.h"
 static const NSString *kLPCALABASHVERSION = @"0.10.0";
 
-@interface LPVersionCommand : NSObject<FrankCommand>
+@interface LPVersionCommand : NSObject<HTTPRequestHandler>
 
 @end

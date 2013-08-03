@@ -7,13 +7,14 @@
 //
 
 #import "LPVersionCommand.h"
-#import "JSON.h"
+#import "HTTPRequestContext.h"
+#import "HTTPDataResponse.h"
 #import <sys/utsname.h>
 
 @implementation LPVersionCommand
 
 
-- (NSString *)handleCommandWithRequestBody:(NSString *)requestBody
+-(NSObject<HTTPResponse> *) handleRequest:(HTTPRequestContext *)context
 {
     NSString *versionString = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];//
     if (!versionString)
@@ -74,7 +75,8 @@
                          @"SUCCESS",@"outcome",
                          //device, os, serial?, other?
                          nil];
-    return TO_JSON(res);
+    
+    return [context responseWithJsonBody:res];
     
 }
 

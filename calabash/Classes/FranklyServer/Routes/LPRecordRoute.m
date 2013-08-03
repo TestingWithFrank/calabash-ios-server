@@ -8,16 +8,14 @@
 #import "HTTPDataResponse.h"
 #import "LPRecorder.h"
 #import "LPNoContentResponse.h"
-#import "RoutingHTTPConnection.h"
+#import "HttpRequestContext.h"
 #import "JSON.h"
 
 
 @implementation LPRecordRoute
 
-- (NSObject<HTTPResponse> *) handleRequestForPath: (NSArray *)path withConnection:(RoutingHTTPConnection *)conn
-{
-    if (![self matchesPath:path]) { return nil; }
-    NSDictionary *_params = FROM_JSON([conn postDataAsString]);
+-(NSObject<HTTPResponse> *) handleRequest:(HTTPRequestContext *)context{
+    NSDictionary *_params = FROM_JSON(context.bodyAsString);
     NSString* action = [_params objectForKey:@"action"];
     if ([action isEqualToString:@"start"]) {
         [self startRecording];
@@ -29,20 +27,7 @@
     } else {
         return nil;
     }
-
-    
 }
-
-- (BOOL) canHandlePostForPath: (NSArray *)path
-{
-    return [self matchesPath:path];
-}
-
--(BOOL)matchesPath:(NSArray *)path
-{
-    return [path containsObject:@"record"];
-}
-
 
 - (void) startRecording
 {

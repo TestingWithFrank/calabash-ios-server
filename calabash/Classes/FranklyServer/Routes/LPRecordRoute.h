@@ -5,8 +5,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "RequestRouter.h"
+#import "RoutingEntry.h"
 
-@interface LPRecordRoute : NSObject<Route>
+@interface LPRecordRoute : NSObject<HTTPRequestHandler>
 
 @end

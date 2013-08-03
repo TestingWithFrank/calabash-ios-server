@@ -25,16 +25,6 @@
 {
     return !self.events && [super isDone];
 }
-- (BOOL) canHandlePostForPath: (NSArray *)path
-{
-    return [path containsObject:@"play"];
-}
-
-
--(BOOL)matchesPath:(NSArray *)path
-{
-    return [path containsObject:@"play"];
-}
 
 -(void) beginOperation 
 {
